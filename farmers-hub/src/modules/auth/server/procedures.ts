@@ -2,19 +2,14 @@ import { headers as getHeaders, cookies as getCookies } from "next/headers";
 import { baseProcedure, createTRPCRouter } from "@/trpc/init";
 import z from "zod";
 import { TRPCError } from "@trpc/server";
-import { AUTH_COOKIE } from "../constants";
 import { registerSchema } from "../schemas";
+import { generateAuthCookies } from "../utils";
 
 export const authRouter = createTRPCRouter({
   session: baseProcedure.query(async ({ ctx }) => {
     const headers = await getHeaders();
     const session = await ctx.db.auth({ headers });
     return session;
-  }),
-  // LOGOUT
-  logout: baseProcedure.mutation(async () => {
-    const cookies = await getCookies();
-    cookies.delete(AUTH_COOKIE);
   }),
   // REGISTRATION
   register: baseProcedure
@@ -63,14 +58,9 @@ export const authRouter = createTRPCRouter({
         });
       }
 
-      const cookies = await getCookies();
-      cookies.set({
-        name: AUTH_COOKIE,
+      await generateAuthCookies({
+        prefix: ctx.db.config.cookiePrefix,
         value: data.token,
-        httpOnly: true,
-        path: "/",
-        // sameSite: "none"
-        // TODO: Ensure cross-domain cookie sharing
       });
 
       return data;
@@ -99,14 +89,9 @@ export const authRouter = createTRPCRouter({
         });
       }
 
-      const cookies = await getCookies();
-      cookies.set({
-        name: AUTH_COOKIE,
+      await generateAuthCookies({
+        prefix: ctx.db.config.cookiePrefix,
         value: data.token,
-        httpOnly: true,
-        path: "/",
-        // sameSite: "none"
-        // TODO: Ensure cross-domain cookie sharing
       });
 
       return data;
