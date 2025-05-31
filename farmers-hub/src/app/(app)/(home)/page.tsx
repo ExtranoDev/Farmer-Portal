@@ -1,3 +1,16 @@
+"use client";
+
+import { useTRPC } from "@/trpc/client";
+import { useQuery } from "@tanstack/react-query";
+
 export default function Home() {
-  return <div>Home page</div>;
+  const trpc = useTRPC();
+  const categories = useQuery(trpc.categories.getMany.queryOptions());
+
+  return (
+    <div>
+      <p>is loading: {`${categories.isLoading}`}</p>{" "}
+      {JSON.stringify(categories, null, 2)}
+    </div>
+  );
 }
