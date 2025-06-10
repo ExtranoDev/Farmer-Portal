@@ -37,13 +37,13 @@ export const PriceFilter = ({
 }: Props) => {
   const handleMinPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
     // Get the raw input value and extract only numeric values
-    const numberValue = e.target.value.replace(/^[0-9.]/g, "");
+    const numberValue = e.target.value.replace(/[^0-9.]/g, "");
     onMinPriceChange(numberValue);
   };
 
   const handleMaxPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
     // Get the raw input value and extract only numeric values
-    const numberValue = e.target.value.replace(/^[0-9.]/g, "");
+    const numberValue = e.target.value.replace(/[^0-9.]/g, "");
     onMaxPriceChange(numberValue);
   };
 
