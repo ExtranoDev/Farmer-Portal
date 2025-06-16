@@ -24,7 +24,7 @@ export const CheckoutView = ({ tenantSlug }: CheckoutViewProps) => {
   const trpc = useTRPC();
   const { data, error, isLoading } = useQuery(
     trpc.checkout.getProducts.queryOptions({
-      ids: [],
+      ids: productIds,
     })
   );
 
