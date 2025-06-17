@@ -1,15 +1,57 @@
 import z from "zod";
-import { Category, Media, Tenant } from "@/payload-types";
-import {
-  baseProcedure,
-  createTRPCRouter,
-  protectedProcedure,
-} from "@/trpc/init";
-import { Sort, Where } from "payload";
-import { headers as getHeaders } from "next/headers";
+import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import { DEFAULT_LIMIT } from "@/constant";
+import { Media, Tenant } from "@/payload-types";
+import { TRPCError } from "@trpc/server";
 
 export const libraryRouter = createTRPCRouter({
+  getOne: protectedProcedure
+    .input(
+      z.object({
+        productId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const ordersData = await ctx.db.find({
+        collection: "orders",
+        pagination: false,
+        limit: 1,
+        where: {
+          and: [
+            {
+              product: {
+                equals: input.productId,
+              },
+            },
+            {
+              user: {
+                equals: ctx.session.user.id,
+              },
+            },
+          ],
+        },
+      });
+
+      const order = ordersData.docs[0];
+
+      if (!order) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Order not found" });
+      }
+
+      const product = await ctx.db.findByID({
+        collection: "products",
+        id: input.productId,
+      });
+
+      if (!product) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Product not found",
+        });
+      }
+
+      return product;
+    }),
   getMany: protectedProcedure
     .input(
       z.object({
