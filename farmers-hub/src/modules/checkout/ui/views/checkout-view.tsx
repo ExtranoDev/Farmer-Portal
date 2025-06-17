@@ -1,11 +1,11 @@
 "use client";
 
 import { useTRPC } from "@/trpc/client";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCart } from "../../hooks/use-cart";
 import { useEffect } from "react";
 import { toast } from "sonner";
-import { cn, generateTenantURL } from "@/lib/utils";
+import { generateTenantURL } from "@/lib/utils";
 import { CheckoutItem } from "../components/checkout-item";
 import { CheckoutSidebar } from "../components/checkout-sidebar";
 import { InboxIcon, LoaderIcon } from "lucide-react";
@@ -22,6 +22,7 @@ export const CheckoutView = ({ tenantSlug }: CheckoutViewProps) => {
   const { productIds, removeProduct, clearCart } = useCart(tenantSlug);
 
   const trpc = useTRPC();
+  const queryClient = useQueryClient();
   const { data, error, isLoading } = useQuery(
     trpc.checkout.getProducts.queryOptions({
       ids: productIds,
@@ -39,7 +40,7 @@ export const CheckoutView = ({ tenantSlug }: CheckoutViewProps) => {
       onError: (error) => {
         if (error.data?.code === "UNAUTHORIZED") {
           // TODO: Modify when subdomains enabled
-          router.push("/sign-in");
+          router.push("/library");
         }
 
         toast.error(error.message);
@@ -51,10 +52,17 @@ export const CheckoutView = ({ tenantSlug }: CheckoutViewProps) => {
     if (states.success) {
       setStates({ success: false, cancel: false });
       clearCart();
-      // TODO invalidate library
+      queryClient.invalidateQueries(trpc.library.getMany.infiniteQueryFilter());
       router.push("/products");
     }
-  }, [states.success, clearCart, router, setStates]);
+  }, [
+    states.success,
+    clearCart,
+    router,
+    setStates,
+    queryClient,
+    trpc.library.getMany,
+  ]);
 
   useEffect(() => {
     if (error?.data?.code === "NOT_FOUND") {
