@@ -41,7 +41,7 @@ export const checkoutRouter = createTRPCRouter({
       if (products.totalDocs !== input.productIds.length) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: "Products not founc",
+          message: "Products not found",
         });
       }
 
