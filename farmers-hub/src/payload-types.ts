@@ -200,6 +200,8 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * You must verify your account before creating products
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
  */
@@ -265,9 +267,13 @@ export interface Order {
   user: string | User;
   product: string | Product;
   /**
-   * Strip checkout session associated with the order
+   * Stripe checkout session associated with the order
    */
   stripeCheckoutSessionId: string;
+  /**
+   * Stripe account associated with the Order
+   */
+  stripeAccountId?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -471,6 +477,7 @@ export interface OrdersSelect<T extends boolean = true> {
   user?: T;
   product?: T;
   stripeCheckoutSessionId?: T;
+  stripeAccountId?: T;
   updatedAt?: T;
   createdAt?: T;
 }
