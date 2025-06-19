@@ -1,4 +1,3 @@
-import { DEFAULT_LIMIT } from "@/constant";
 import { Media, Tenant } from "@/payload-types";
 import { baseProcedure, createTRPCRouter } from "@/trpc/init";
 import { TRPCError } from "@trpc/server";

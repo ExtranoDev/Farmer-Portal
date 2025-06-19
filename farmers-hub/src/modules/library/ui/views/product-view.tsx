@@ -2,9 +2,7 @@
 
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
-import { ProductList } from "../components/product-list";
 import { Suspense } from "react";
-import { ProductCardSkeleton } from "../components/product-card";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { ReviewSidebar } from "../components/review-sidebar";

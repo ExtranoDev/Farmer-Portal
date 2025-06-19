@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import { useTRPC } from "@/trpc/client";
 import { LoaderIcon } from "lucide-react";

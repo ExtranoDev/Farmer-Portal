@@ -19,7 +19,7 @@ export const ProductList = ({ tenantSlug, category, narrowView }: Props) => {
   const [filters] = useProductFilters();
 
   const trpc = useTRPC();
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery(
       trpc.products.getMany.infiniteQueryOptions(
         {
