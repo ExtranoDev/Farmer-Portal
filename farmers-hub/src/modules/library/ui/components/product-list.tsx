@@ -7,15 +7,9 @@ import { Button } from "@/components/ui/button";
 import { InboxIcon } from "lucide-react";
 import { ProductCard, ProductCardSkeleton } from "./product-card";
 
-interface Props {
-  category?: string;
-  tenantSlug?: string;
-  narrowView?: boolean;
-}
-
-export const ProductList = ({ tenantSlug, category, narrowView }: Props) => {
+export const ProductList = () => {
   const trpc = useTRPC();
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useSuspenseInfiniteQuery(
       trpc.products.getMany.infiniteQueryOptions(
         {
@@ -72,7 +66,7 @@ export const ProductList = ({ tenantSlug, category, narrowView }: Props) => {
   );
 };
 
-export const ProductListSkeleton = ({ narrowView }: Props) => {
+export const ProductListSkeleton = () => {
   return (
     <div className="border border-black border-dashed flex items-center justify-center p-8 flex-col gap-y-4 bg-white w-full rounded-lg">
       {Array.from({ length: DEFAULT_LIMIT }).map((_, index) => (

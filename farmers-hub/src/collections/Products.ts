@@ -1,7 +1,6 @@
 import { isSuperAdmin } from "@/lib/access";
 import type { Tenant } from "@/payload-types";
 import { CollectionConfig } from "payload";
-import { features } from "process";
 
 export const Products: CollectionConfig = {
   slug: "products",

@@ -135,15 +135,15 @@ export const productsRouter = createTRPCRouter({
       let sort: Sort = "-createdAt";
 
       if (input.sort === "trending") {
-        sort: "-createdAt";
+        sort = "-createdAt";
       }
 
       if (input.sort === "hot_and_new") {
-        sort: "-createdAt";
+        sort = "-createdAt";
       }
 
       if (input.sort === "trending") {
-        sort: "+createdAt";
+        sort = "+createdAt";
       }
 
       if (input.minPrice && input.maxPrice) {
