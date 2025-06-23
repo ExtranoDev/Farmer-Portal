@@ -1,10 +1,14 @@
 import { headers as getHeaders } from "next/headers";
-import { baseProcedure, createTRPCRouter } from "@/trpc/init";
+import {
+  baseProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+} from "@/trpc/init";
 import z from "zod";
 import { TRPCError } from "@trpc/server";
 import { registerSchema } from "../schemas";
-import { generateAuthCookies } from "../utils";
-import { stripe } from "@/lib/stripe";
+import { deleteAuthCookies, generateAuthCookies } from "../utils";
+// import { stripe } from "@/lib/stripe";
 
 export const authRouter = createTRPCRouter({
   session: baseProcedure.query(async ({ ctx }) => {
@@ -35,21 +39,21 @@ export const authRouter = createTRPCRouter({
         });
       }
 
-      const account = await stripe.accounts.create({});
+      // const account = await stripe.accounts.create({});
 
-      if (!account) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Failed to create Stripe account",
-        });
-      }
+      // if (!account) {
+      //   throw new TRPCError({
+      //     code: "BAD_REQUEST",
+      //     message: "Failed to create Stripe account",
+      //   });
+      // }
 
       const tenant = await ctx.db.create({
         collection: "tenants",
         data: {
           name: input.username,
           slug: input.username,
-          stripeAccountId: account.id,
+          stripeAccountId: Math.random().toString(36).substring(2, 10),
         },
       });
 
@@ -116,4 +120,7 @@ export const authRouter = createTRPCRouter({
 
       return data;
     }),
+  logout: protectedProcedure.mutation(async () => {
+    await deleteAuthCookies();
+  }),
 });

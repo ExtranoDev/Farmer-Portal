@@ -128,7 +128,7 @@ export const checkoutRouter = createTRPCRouter({
           // quantity: product.quantity,
           price_data: {
             unit_amount: product.price * 100,
-            currency: "usd",
+            currency: "NGN",
             product_data: {
               name: product.name,
               metadata: {

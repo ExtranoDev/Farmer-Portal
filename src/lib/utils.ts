@@ -23,9 +23,11 @@ export function generateTenantURL(tenantSlug: string) {
 }
 
 export function formatCurrency(value: string | number) {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("en-NG", {
     style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 1,
+    currency: "NGN",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+    currencyDisplay: "symbol",
   }).format(Number(value));
 }
