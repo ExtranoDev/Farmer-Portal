@@ -42,6 +42,7 @@ const formatNaira = (amount: number) =>
     style: "currency",
     currency: "NGN",
     minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
   }).format(amount);
 
 const Page = () => {

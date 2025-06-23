@@ -1,3 +1,4 @@
+import { ICONFILTER } from "@/constant";
 import Image from "next/image";
 
 const Page = () => {
@@ -15,10 +16,7 @@ const Page = () => {
           width={80}
           height={80}
           className="mx-auto mb-4"
-          style={{
-            filter:
-              "brightness(0) saturate(100%) invert(15%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(90%)",
-          }}
+          style={{ filter: ICONFILTER }}
         />
       </div>
       <form className="bg-white rounded-xl shadow-md p-8 w-full max-w-lg flex flex-col gap-6">
@@ -64,10 +62,10 @@ const Page = () => {
       <div className="mt-10 text-center text-gray-600">
         Or email us directly at{" "}
         <a
-          href="mailto:support@farmershub.com"
+          href={`mailto:${process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@farmershub.com"}`}
           className="text-primary underline"
         >
-          support@farmershub.com
+          {process.env.NEXT_PUBLIC_SUPPORT_EMAIL || "support@farmershub.com"}
         </a>
       </div>
     </div>

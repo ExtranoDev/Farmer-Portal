@@ -1,3 +1,4 @@
+import { ICONFILTER } from "@/constant";
 import Image from "next/image";
 
 const features = [
@@ -57,10 +58,7 @@ const Page = () => {
               width={48}
               height={48}
               className="mb-4"
-              style={{
-                filter:
-                  "brightness(0) saturate(100%) invert(15%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(90%)",
-              }}
+              style={{ filter: ICONFILTER }}
             />
             <h2 className="text-2xl font-semibold mb-2 text-black">
               {feature.title}
