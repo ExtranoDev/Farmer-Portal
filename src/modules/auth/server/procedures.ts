@@ -1,10 +1,14 @@
 import { headers as getHeaders } from "next/headers";
-import { baseProcedure, createTRPCRouter } from "@/trpc/init";
+import {
+  baseProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+} from "@/trpc/init";
 import z from "zod";
 import { TRPCError } from "@trpc/server";
 import { registerSchema } from "../schemas";
-import { generateAuthCookies } from "../utils";
-import { stripe } from "@/lib/stripe";
+import { deleteAuthCookies, generateAuthCookies } from "../utils";
+// import { stripe } from "@/lib/stripe";
 
 export const authRouter = createTRPCRouter({
   session: baseProcedure.query(async ({ ctx }) => {
@@ -116,4 +120,7 @@ export const authRouter = createTRPCRouter({
 
       return data;
     }),
+  logout: protectedProcedure.mutation(async () => {
+    await deleteAuthCookies();
+  }),
 });

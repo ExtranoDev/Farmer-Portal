@@ -77,7 +77,7 @@ export const SignUpView = () => {
                 <span
                   className={cn("text-2xl font-semibold", poppins.className)}
                 >
-                  FamsHub
+                  FarmersHub
                 </span>
               </Link>
               <Button
@@ -92,7 +92,7 @@ export const SignUpView = () => {
               </Button>
             </div>
             <h1 className="text-4xl font-medium">
-              Join over 1000 farmers earning money on FamsHub.
+              Join over 1000 farmers earning money on FarmersHub.
             </h1>
             <FormField
               name="username"

@@ -21,11 +21,13 @@ export const formatAsCurrency = (value: string) => {
   const numberValue = parseFloat(formattedValue);
   if (isNaN(numberValue)) return "";
 
-  return Intl.NumberFormat("en-US", {
+  // Format as Nigerian Naira (₦)
+  return new Intl.NumberFormat("en-NG", {
     style: "currency",
-    currency: "USD",
+    currency: "NGN",
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
+    currencyDisplay: "symbol",
   }).format(numberValue);
 };
 

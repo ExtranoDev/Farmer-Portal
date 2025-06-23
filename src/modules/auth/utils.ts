@@ -20,3 +20,11 @@ export const generateAuthCookies = async ({ prefix, value }: Props) => {
     }),
   });
 };
+
+export const deleteAuthCookies = async () => {
+  const cookies = await getCookies();
+  // Delete all cookies
+  cookies.getAll().forEach((cookie) => {
+    cookies.delete(cookie.name);
+  });
+};

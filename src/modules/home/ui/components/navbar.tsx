@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Poppins } from "next/font/google";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -10,7 +12,7 @@ import { NavbarSidebar } from "./navbar-sidebar";
 import { useState } from "react";
 import { MenuIcon } from "lucide-react";
 import { useTRPC } from "@/trpc/client";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -52,6 +54,17 @@ export const Navbar = () => {
 
   const trpc = useTRPC();
   const session = useQuery(trpc.auth.session.queryOptions());
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const logout = useMutation(
+    trpc.auth.logout.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
+        router.push("/sign-in");
+      },
+    })
+  );
 
   return (
     <nav className="h-20 flex border-b justify-between font-medium bg-white">
@@ -64,6 +77,8 @@ export const Navbar = () => {
       <NavbarSidebar
         items={navBarItems}
         open={isSidebarOpen}
+        user={session.data?.user}
+        logout={() => logout.mutate()}
         onOpenChange={setIsSidebarOpen}
       />
 
@@ -86,6 +101,14 @@ export const Navbar = () => {
             className="border-l border-t-0 border-b-0 border-r-0 px-12 h-full rounded-none bg-black text-white hover:bg-pink-400 hover:text-black transition-colors text-lg"
           >
             <Link href="/admin">Dashboard</Link>
+          </Button>
+          <Button
+            onClick={() => logout.mutate()}
+            variant="secondary"
+            className="border-l border-t-0 border-b-0 border-r-0 px-12 h-full rounded-none bg-white hover:bg-red-400 transition-colors text-lg"
+            disabled={logout.isPending}
+          >
+            Logout
           </Button>
         </div>
       ) : (

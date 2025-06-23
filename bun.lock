@@ -4,7 +4,7 @@
     "": {
       "name": "farmers-hub",
       "dependencies": {
-        "@hookform/resolvers": "^5.1.1",
+        "@hookform/resolvers": "5.1.1",
         "@payloadcms/db-mongodb": "3.37.0",
         "@payloadcms/next": "3.37.0",
         "@payloadcms/payload-cloud": "3.37.0",
