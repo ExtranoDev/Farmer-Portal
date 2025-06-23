@@ -13,6 +13,7 @@ import { useState } from "react";
 import { MenuIcon } from "lucide-react";
 import { useTRPC } from "@/trpc/client";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -62,6 +63,9 @@ export const Navbar = () => {
       onSuccess: async () => {
         await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
         router.push("/sign-in");
+      },
+      onError: (error) => {
+        toast.error(error.message);
       },
     })
   );

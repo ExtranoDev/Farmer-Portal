@@ -23,8 +23,13 @@ export const generateAuthCookies = async ({ prefix, value }: Props) => {
 
 export const deleteAuthCookies = async () => {
   const cookies = await getCookies();
-  // Delete all cookies
-  cookies.getAll().forEach((cookie) => {
-    cookies.delete(cookie.name);
+  cookies.delete({
+    name: "payload-token",
+    path: "/",
+    ...(process.env.NODE_ENV !== "development" && {
+      sameSite: "none",
+      domain: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
+      secure: true,
+    }),
   });
 };
