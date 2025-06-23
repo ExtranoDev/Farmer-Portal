@@ -5,31 +5,31 @@ const features = [
     title: "Multi-Tenant Stores",
     description:
       "Each farmer gets a dedicated store page, making it easy to manage products and reach more customers.",
-    icon: "/window.svg",
+    icon: "/store-open.svg",
   },
   {
     title: "Secure Payments",
     description:
       "Integrated payment solutions ensure fast, safe, and reliable transactions for both buyers and sellers.",
-    icon: "/file.svg",
+    icon: "/secure-payment.svg",
   },
   {
     title: "Product Reviews",
     description:
       "Customers can leave reviews, helping farmers build trust and improve their offerings.",
-    icon: "/star.svg",
+    icon: "/comments.svg",
   },
   {
     title: "Order Management",
     description:
       "Track, manage, and fulfill orders with ease using our intuitive dashboard.",
-    icon: "/globe.svg",
+    icon: "/online-delivery.svg",
   },
   {
     title: "Community Support",
     description:
       "Access resources, tips, and a network of fellow farmers to help your business grow.",
-    icon: "/avatar.svg",
+    icon: "/community-manager.svg",
   },
 ];
 
@@ -57,6 +57,10 @@ const Page = () => {
               width={48}
               height={48}
               className="mb-4"
+              style={{
+                filter:
+                  "brightness(0) saturate(100%) invert(15%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(90%)",
+              }}
             />
             <h2 className="text-2xl font-semibold mb-2 text-black">
               {feature.title}

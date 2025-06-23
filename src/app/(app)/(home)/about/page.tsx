@@ -5,19 +5,19 @@ const aboutFeatures = [
     title: "Empowering Farmers",
     description:
       "FarmersHub connects local farmers to a wider market, providing tools and resources to grow their business and reach new customers.",
-    icon: "/globe.svg",
+    icon: "/empower-empowerment.svg",
   },
   {
     title: "Seamless Transactions",
     description:
       "Our platform ensures secure and easy payments, making buying and selling agricultural products hassle-free.",
-    icon: "/file.svg",
+    icon: "/transaction.svg",
   },
   {
     title: "Community Support",
     description:
       "Join a thriving community of over 1000 farmers, share knowledge, and access exclusive resources to boost your productivity.",
-    icon: "/window.svg",
+    icon: "/community-manager.svg",
   },
 ];
 
@@ -51,6 +51,10 @@ const Page = () => {
               width={48}
               height={48}
               className="mb-4"
+              style={{
+                filter:
+                  "brightness(0) saturate(100%) invert(15%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(90%)",
+              }}
             />
             <h2 className="text-2xl font-semibold mb-2 text-black">
               {feature.title}

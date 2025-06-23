@@ -10,11 +10,15 @@ const Page = () => {
           team and we’ll get back to you as soon as possible.
         </p>
         <Image
-          src="/window.svg"
+          src="/farmer-icon.svg"
           alt="Contact FarmersHub"
           width={80}
           height={80}
           className="mx-auto mb-4"
+          style={{
+            filter:
+              "brightness(0) saturate(100%) invert(15%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(90%)",
+          }}
         />
       </div>
       <form className="bg-white rounded-xl shadow-md p-8 w-full max-w-lg flex flex-col gap-6">
