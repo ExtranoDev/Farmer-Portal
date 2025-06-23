@@ -62,6 +62,7 @@ export const Navbar = () => {
     trpc.auth.logout.mutationOptions({
       onSuccess: async () => {
         await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
+        toast.success("Logout successful");
         router.push("/sign-in");
       },
       onError: (error) => {

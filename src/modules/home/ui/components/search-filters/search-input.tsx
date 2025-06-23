@@ -23,7 +23,7 @@ export const SearchInput = ({ disabled, defaultValue, onChange }: Props) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       onChange?.(searchValue);
-    }, 500);
+    }, 300);
 
     return () => clearTimeout(timeoutId);
   }, [searchValue, onChange]);

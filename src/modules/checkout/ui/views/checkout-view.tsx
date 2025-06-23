@@ -35,6 +35,7 @@ export const CheckoutView = ({ tenantSlug }: CheckoutViewProps) => {
         setStates({ success: false, cancel: false });
       },
       onSuccess: (data) => {
+        toast.success("Success");
         window.location.href = data.url;
       },
       onError: (error) => {
