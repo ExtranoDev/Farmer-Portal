@@ -41,6 +41,7 @@ export const ReviewForm = ({ productId, initialData }: Props) => {
           })
         );
         setIsPreview(true);
+        toast.success("Success: Review created");
       },
       onError: (error) => {
         toast.error(error.message);
@@ -57,6 +58,7 @@ export const ReviewForm = ({ productId, initialData }: Props) => {
           })
         );
         setIsPreview(true);
+        toast.success("Success: Review Updated");
       },
       onError: (error) => {
         toast.error(error.message);

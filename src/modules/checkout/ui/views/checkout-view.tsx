@@ -36,6 +36,7 @@ export const CheckoutView = ({ tenantSlug }: CheckoutViewProps) => {
       },
       onSuccess: (data) => {
         window.location.href = data.url;
+        toast.success("Success");
       },
       onError: (error) => {
         if (error.data?.code === "UNAUTHORIZED") {
