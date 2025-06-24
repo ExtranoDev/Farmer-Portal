@@ -40,7 +40,13 @@ export const Tenants: CollectionConfig = {
       type: "upload",
       relationTo: "media",
       access: {
-        // Allow tenants to update their own image or super admin
+        // Allow tenants to create or update their own image or super admin
+        create: ({ req, id }) => {
+          return (
+            isSuperAdmin(req.user) ||
+            !!req.user?.tenants?.some((t) => t.tenant === id)
+          );
+        },
         update: ({ req, id }) => {
           return (
             isSuperAdmin(req.user) ||
