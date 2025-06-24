@@ -6,16 +6,17 @@ export const Products: CollectionConfig = {
   slug: "products",
   access: {
     create: ({ req }) => {
-      if (isSuperAdmin(req.user)) return true;
-      const tenant = req.user?.tenants?.[0]?.tenant as Tenant;
+      // if (isSuperAdmin(req.user)) return true;
+      // const tenant = req.user?.tenants?.[0]?.tenant as Tenant;
 
-      return Boolean(tenant?.stripeDetailsSubmitted);
+      // return Boolean(tenant?.stripeDetailsSubmitted);
+      return true;
     },
     delete: ({ req }) => isSuperAdmin(req.user),
   },
   admin: {
     useAsTitle: "name",
-    description: "You must verify your account before creating products",
+    // description: "You must verify your account before creating products",
   },
   fields: [
     {

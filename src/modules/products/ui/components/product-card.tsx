@@ -27,12 +27,6 @@ export const ProductCard = ({
 }: ProductCardProps) => {
   const router = useRouter();
 
-  const handleUserClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    router.push(generateTenantURL(tenantSlug));
-  };
   return (
     <Link href={`${generateTenantURL(tenantSlug)}/products/${id}`}>
       <div className="hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-shadow border rounded-md bg-white overflow-hidden h-full flex flex-col">
@@ -46,8 +40,15 @@ export const ProductCard = ({
         </div>
         <div className="p-4 border-y flex flex-col gap-3 felx-1">
           <h2 className="text-lg font-medium line-clamp-4">{name}</h2>
-          {/* TODO: Redirect to User shop */}
-          <div className="flex items-center gap-2" onClick={handleUserClick}>
+          {/* Tenant area as a button to avoid nested <a> and navigation conflicts */}
+          <button
+            type="button"
+            className="flex items-center gap-2 bg-transparent border-none p-0 m-0 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              router.push(generateTenantURL(tenantSlug));
+            }}
+          >
             {tenantImageUrl && (
               <Image
                 alt={tenantSlug}
@@ -58,7 +59,7 @@ export const ProductCard = ({
               />
             )}
             <p className="text-sm underline font-medium">{tenantSlug}</p>
-          </div>
+          </button>
           {reviewCount > 0 && (
             <div className="flex items-center gap-1">
               <StarIcon className="size-3.5 fill-black" />
