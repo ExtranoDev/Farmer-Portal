@@ -1,11 +1,11 @@
 import { isSuperAdmin } from "@/lib/access";
-import type { Tenant } from "@/payload-types";
+// import type { Tenant } from "@/payload-types";
 import { CollectionConfig } from "payload";
 
 export const Products: CollectionConfig = {
   slug: "products",
   access: {
-    create: ({ req }) => {
+    create: () => {
       // if (isSuperAdmin(req.user)) return true;
       // const tenant = req.user?.tenants?.[0]?.tenant as Tenant;
 
