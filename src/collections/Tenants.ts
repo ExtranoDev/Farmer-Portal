@@ -39,6 +39,15 @@ export const Tenants: CollectionConfig = {
       name: "image",
       type: "upload",
       relationTo: "media",
+      access: {
+        // Allow tenants to update their own image or super admin
+        update: ({ req, id }) => {
+          return (
+            isSuperAdmin(req.user) ||
+            !!req.user?.tenants?.some((t) => t.tenant === id)
+          );
+        },
+      },
     },
     {
       name: "stripeAccountId",
