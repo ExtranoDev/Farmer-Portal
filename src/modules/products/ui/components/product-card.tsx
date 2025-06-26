@@ -13,6 +13,7 @@ interface ProductCardProps {
   reviewRating: number;
   reviewCount: number;
   price: number;
+  tags?: string[];
 }
 
 export const ProductCard = ({
@@ -24,11 +25,12 @@ export const ProductCard = ({
   reviewRating,
   reviewCount,
   price,
+  tags = [],
 }: ProductCardProps) => {
   const router = useRouter();
 
   return (
-    <Link href={`${generateTenantURL(tenantSlug)}/products/${id}`}>
+    <Link prefetch href={`${generateTenantURL(tenantSlug)}/products/${id}`}>
       <div className="hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-shadow border rounded-md bg-white overflow-hidden h-full flex flex-col">
         <div className="relative aspect-square">
           <Image
@@ -69,10 +71,25 @@ export const ProductCard = ({
             </div>
           )}
         </div>
-        <div className="p-4">
+        <div className="p-4 flex items-center gap-2 justify-between">
           <div className="relative px-2 py-1 border bg-pink-400 w-fit">
             <p className="text-sm font-medium">{formatCurrency(price)}</p>
           </div>
+          {/* Muted tags beside price, at most three */}
+          {tags.length > 0 && (
+            <div className="flex gap-1 overflow-hidden">
+              {tags.slice(0, 3).map((tag) => (
+                <span
+                  key={tag}
+                  className="px-1 bg-neutral-200 text-neutral-500 text-xs font-medium rounded-md italic"
+                  title={tag}
+                  style={{ display: "inline-block", verticalAlign: "middle" }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </Link>

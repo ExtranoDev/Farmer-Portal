@@ -66,6 +66,13 @@ export const ProductList = ({ tenantSlug, category, narrowView }: Props) => {
               reviewRating={product.reviewRating}
               reviewCount={product.reviewCount}
               price={product.price}
+              tags={
+                Array.isArray(product.tags)
+                  ? product.tags.map((tag) =>
+                      typeof tag === "string" ? tag : tag.name
+                    )
+                  : []
+              }
             />
           ))}
       </div>
