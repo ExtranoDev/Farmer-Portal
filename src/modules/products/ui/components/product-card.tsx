@@ -81,7 +81,7 @@ export const ProductCard = ({
               {tags.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
-                  className="px-1 bg-neutral-200 text-neutral-500 text-xs font-medium rounded-md italic"
+                  className="px-1 bg-neutral-200 text-neutral-500 text-sm font-medium rounded-md truncate italic"
                   title={tag}
                   style={{ display: "inline-block", verticalAlign: "middle" }}
                 >
